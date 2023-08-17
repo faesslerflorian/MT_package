@@ -23,9 +23,10 @@ def add_columns_for_duplicate_exclusion(table_dataframe):
 def split_dataframe_according_to_mt_number(table_dataframe):
     grouped_table_dataframe = table_dataframe.groupby(table_dataframe['annotation'])
     list_of_table_dataframe = []
-
-    for i in range(1,(table_dataframe['annotation'].to_numpy().max()) + 1):
-        list_of_table_dataframe.append(grouped_table_dataframe.get_group(i))
+    annotation_array = table_dataframe['annotation'].to_numpy()
+    for i in range(1, (annotation_array.max()) + 1):
+        if i in annotation_array:
+            list_of_table_dataframe.append(grouped_table_dataframe.get_group(i))
     return list_of_table_dataframe
 
 
